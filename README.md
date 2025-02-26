@@ -60,6 +60,7 @@ install.packages(c("shiny", "bs4Dash", "DT", "ggplot2", "plotly", "dplyr", "bsli
 3. **Project Structure:**
 Ensure your project directory is structured as follows:
 
+ ```bash
 TradePulse-Analytics/
 ├── app.R              # Main Shiny app file
 ├── data/
