@@ -1,0 +1,90 @@
+
+
+    .control-button {
+       font-size: 14px;
+       margin-right: 10px; 
+       margin-left: 10px; 
+       background-color: white;
+       color: #0137A6; 
+       border: 1px solid #0137A6; 
+       padding: 8px 16px;
+       border-radius: 5px;
+       cursor: pointer;
+    }
+
+    .reset-button {
+      float: right;
+      background-color: #e60000;
+      color: #ffffff;
+      border: 2px solid #b30000;
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+         }
+
+         .download-button {
+            float: left;
+            background-color: #0a57f0;
+            color: #ffffff;
+            border: 2px solid #0a57f0;
+            border-radius: 5px;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+               }
+    
+    .header-title-container {
+       display: flex;
+       align-items: center;
+       justify-content: center; /* Align items to the start of the container */
+       position: relative; /* Ensure the container is positioned correctly */
+       width: 180px; /* Match the width of the sidebar-footer */
+       padding: 4px 6px; /* Add padding to give some space around the title */ 
+       background-color: #fff; /* Light background color to distinguish the title area */
+       border-radius: 6px; /* Optional: Add rounded corners for a modern look */
+       margin-left: 5px;
+       border: 1px solid #969696; 
+       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25); /* Subtle shadow for a more professional look */
+    }
+     
+     .header-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000000;
+      padding-top: 5px; /* Space after the vertical line */
+     }
+
+
+  /* Style the clock container */
+  .clock-container {
+    list-style-type: none;
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;  /* Positions the clock on the far right */
+    align-items: right; 
+    margin-right: 5px;         /* Adjust spacing as desired */
+  }
+  
+  /* Style the clock text */
+  #dynamic-clock {
+    font-size: 15px;
+    color: #000000;
+    border: 1px solid #969696;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+
+
+
+
+

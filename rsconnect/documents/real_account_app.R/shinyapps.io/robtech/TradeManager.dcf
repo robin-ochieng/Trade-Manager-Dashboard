@@ -1,0 +1,13 @@
+name: TradeManager
+title: TradeManager
+username: robtech
+account: robtech
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14019278
+bundleId: 9812667
+url: https://robtech.shinyapps.io/TradeManager/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/trades_demo.csv|demo_account_app.R

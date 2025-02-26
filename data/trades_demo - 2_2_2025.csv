@@ -1,0 +1,25 @@
+trade_date,trade_time,currency_pair,entry_second,trade_expiry_time,outcome,comment
+2/16/2025,0:15,EUR/RUB,15,38,loss,It was  a 15 second trade I took on the open of a new candle that was bearish but it pulled back and the trade resulted in a loss
+2/16/2025,0:20,USD/CLP,15,41,loss,The trade ended in a loss I took a 15 second sell trade since the market had faked that it would be a sale but it immediately switched direction and the candle went up. I suggest that I wait for the candle to clearly show direction before I can take the 15 second trade
+2/16/2025,0:25,AUD/CAD,15,56,loss,"Took a 15 second trade for buy at the 56th second but I lost since it was a fake....Again, I suggest that I be patient and check make sure the candle is stable and is headed in one direction, avoid choppy markets and indecision candles."
+2/16/2025,0:30,AUD/CAD,15,41,win,Waited for the candle to clearly form and entered a buy trade at the perfect time around the 41 second mark for 15 seconds and it was a win
+2/16/2025,0:44,AUD/CHF,15,55,loss,Took a sell trade on a area of consolidation but the market quickly reversed direction. Be careful with consolidation areas and please wait for the candle it show strong strength in one direction
+2/16/2025,0:55,AUD/CHF,15,48,loss,Took a 15 second sell trade at the 48 second mark but though the market was in this direction it started to pull back and I lost the trade at the 3 second mark 
+2/16/2025,1:45,EUR/NZD,15,50,loss,The market was bullish and the candle was developing well I got to the trade at the 50th second mark but the trade lost after the market pulled back. 
+2/16/2025,1:51,GBP/JPY,15,41,win,Took a buy sell at the 41'st second the market was in a bullish trend and I took a buy  for 15 seconds and won 
+2/16/2025,1:58,GBP/JPY,15,22,win,Took a 15 second down since the market was in consolidation and it had got to the resistance line so I was sure that the market was going down so I took the trade at the 22 second mark during a pull back
+2/16/2025,4:15,AUD/USD,15,55,loss,"Took this trade on the 55th second with a 15 second Expiry time I Lost the trade as it was the opening of a higher time frame  candle and it quickl formed a wick down then reversed, which made me lose"
+2/16/2025,4:28,CAD/CHF,15,55,win,"Took a 15 second  Expiry Time trade at a key level, I was guided by the momentum that had reached the overbought area and was steadily dropping thus entered the trade at the 55 second and placed a sell."
+"2025-02-16","05:32","CAD/CHF",48,"15 Seconds","win","This was a steady uptrend and took the trade at the perfect time. Good Trade."
+"2025-02-16","20:17","GBP/JPY",51,"15 Seconds","win","The market was in consolidation but the previous candle which was bullish had got to the resistance and a strong downward move presented itself so I too It. Good trade."
+"2025-02-16","20:34","USD/BRL",52,"15 Seconds","loss","The Market was In indecision So I went for a  buy trade but it faked out and did turned to a sell trade"
+"2025-02-16","20:43","USD/PHP",40,"15 Seconds","win","Goodly timed trade, entry made on the perfect time having confirmed the trend on the higher time frame."
+"2025-02-16","20:43","USD/PHP",25,"15 Seconds","loss","Impulsive and a badly timed trade, Please stop double placing stick to the discipline. "
+"2025-02-16","20:43","USD/PHP",52,"15 Seconds","loss","Impulsive and a badly timed trade stick to the discipline. Record a trade before making another trading decision."
+"2025-02-16","20:49","USD/PHP",51,"15 Seconds","win","Goody timed trade was a strong down trend.  "
+"2025-02-16","20:51","USD/PHP",48,"15 Seconds","win","Goodly timed trade the market is consolidating thus support and resistance are perfectly defined and I took a down trade upon the previous candle reaching resistance. "
+"2025-02-16","20:57","AUD/USD",48,"15 Seconds","loss","The market reversed after I had made a down trade. Be more patient and find the right opportunity"
+"2025-02-16","20:34","LBP/USD",55,"15 Seconds","loss","The market reversed Upon entry I attribute this to quick entry. Be more patient"
+"2025-02-16","21:04","EUR/CHF",55,"15 Seconds","win","Good Entry on a strong Level in the market."
+"2025-02-16","21:04","GBP/JPY",41,"15 Seconds","loss","Wrong timing the market pulled back and got me out of the trade. Bad trade."
+"2025-02-16","21:04","GBP/JPY",50,"15 Seconds","loss","Bad Trade, the market was in indecision thus alot of fake outs."
