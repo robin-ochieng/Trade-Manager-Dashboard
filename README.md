@@ -71,7 +71,7 @@ TradePulse-Analytics/
 │   └── js/
 │       └── custom.js   # Custom JavaScript
 └── README.md          # This documentation file
-
+```
 
 ## Usage
 
