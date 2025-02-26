@@ -166,7 +166,7 @@ ui <- bs4DashPage(
     ),
     fluidRow(
       bs4Card(
-        title = "Top 5 Most Profitable Currency Pairs",
+        title = "Top 5 Most Profitable Assets",
         width = 6,
         collapsible = TRUE,
         solidHeader = TRUE,
@@ -174,7 +174,7 @@ ui <- bs4DashPage(
         DTOutput("top_profitable")
       ),
       bs4Card(
-        title = "Top 5 Most Unprofitable Currency Pairs",
+        title = "Top 5 Most Unprofitable Assets",
         width = 6,
         collapsible = TRUE,
         solidHeader = TRUE,
@@ -322,7 +322,7 @@ server <- function(input, output, session) {
     paste(rate)
   })
   
-  # Top 5 Most Profitable Currency Pairs.
+  # Top 5 Most Profitable Assets.
   output$top_profitable <- renderDT({
     data <- tradeData()
     if(nrow(data) == 0) return(datatable(data.frame()))
@@ -338,7 +338,7 @@ server <- function(input, output, session) {
     datatable(top5, options = list(dom = 't', paging = FALSE))
   })
   
-  # Top 5 Most Unprofitable Currency Pairs.
+  # Top 5 Most Unprofitable Assets.
   output$top_unprofitable <- renderDT({
     data <- tradeData()
     if(nrow(data) == 0) return(datatable(data.frame()))
