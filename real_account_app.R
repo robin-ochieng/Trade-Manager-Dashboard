@@ -20,10 +20,8 @@ my_theme <- bs_theme(
   navbar_fg = "#ffffff"  
 )
 
-
 # Define the CSV file path
 csv_file_path <- "data/trades_real.csv"
-
 
 # Function to fetch trade data from the CSV file.
 getTrades <- function(){
@@ -34,7 +32,7 @@ getTrades <- function(){
         trade_date = character(),
         trade_time = character(),
         currency_pair = character(),
-        entry_second = numeric(),
+        forecast = character(),
         trade_expiry_time = character(),
         outcome = character(),
         comment = character()
@@ -50,12 +48,12 @@ getTrades <- function(){
 }
 
 # Function to insert a new trade record into the CSV file.
-insertTrade <- function(date, time, currency_pair, entry_second, trade_expiry_time, outcome, comment){
+insertTrade <- function(date, time, currency_pair, forecast, trade_expiry_time, outcome, comment){
   new_trade <- data.frame(
     trade_date = date,
     trade_time = time,
     currency_pair = currency_pair,
-    entry_second = as.numeric(entry_second),
+    forecast = forecast,
     trade_expiry_time = trade_expiry_time,
     outcome = outcome,
     comment = comment,
@@ -122,17 +120,18 @@ ui <- bs4DashPage(
         status = "white",
         dateInput("trade_date", "Trade Date", value = Sys.Date()),
         textInput("trade_time", "Trade Time (HH:MM)", value = format(Sys.time(), "%H:%M")),
-        textInput("currency_pair", "Currency Pair", placeholder = "e.g., EUR/USD"),
-        numericInput("entry_second", "Entry Second", value = 0, min = 0),
+        textInput("currency_pair", "Asset", placeholder = "e.g., Asset"),
+        selectInput("forecast", "Forecast", choices = list("Buy" = "buy", "Sell" = "sell")),
         selectInput("trade_expiry_time", "Trade Expiry Time", 
-                    choices = c("15 Seconds", "5 Seconds", "10 Seconds", "30 Seconds", 
+                    choices = c("5 Seconds", "15 Seconds", "10 Seconds", "30 Seconds", 
                                 "1 minute", "1.30 minute", "2 minutes", "5 minutes", 
-                                "10 minutes", "15 minutes")),
+                                "10 minutes", "15 minutes", "30 minutes", "1 hour", "4 hours", "1 day")),
         selectInput("outcome", "Outcome", choices = list("Win" = "win", "Loss" = "loss")),
         textAreaInput("comment", "Comment", placeholder = "Enter comments..."),
         actionButton("submit_trade", "Submit Trade", class = "btn-primary control-button"),
         hr(),
-        actionButton("reset_data", "Reset Trades Data", icon = icon("redo"), class = "btn-danger reset-button")
+        actionButton("reset_data", "Reset Trades Data", icon = icon("redo"), class = "btn-danger reset-button"),
+        downloadButton("download_trades", "Download Trades Data", icon = icon("download") ,class = "btn-primary download-button")
       ),
       bs4Card(
         title = "Trade Analytics",
@@ -167,7 +166,7 @@ ui <- bs4DashPage(
     ),
     fluidRow(
       bs4Card(
-        title = "Top 5 Most Profitable Currency Pairs",
+        title = "Top 5 Most Profitable Assets",
         width = 6,
         collapsible = TRUE,
         solidHeader = TRUE,
@@ -175,7 +174,7 @@ ui <- bs4DashPage(
         DTOutput("top_profitable")
       ),
       bs4Card(
-        title = "Top 5 Most Unprofitable Currency Pairs",
+        title = "Top 5 Most Unprofitable Assets",
         width = 6,
         collapsible = TRUE,
         solidHeader = TRUE,
@@ -199,20 +198,19 @@ ui <- bs4DashPage(
 )
 
 server <- function(input, output, session) {
-  
   # Reactive value to store current trade data.
   tradeData <- reactiveVal(getTrades())
   
   # Observe when a new trade is submitted.
   observeEvent(input$submit_trade, {
-    req(input$trade_date, input$trade_time, input$currency_pair, input$entry_second, input$trade_expiry_time, input$outcome)
+    req(input$trade_date, input$trade_time, input$currency_pair, input$trade_expiry_time, input$outcome, input$forecast)
     
     # Create a new record as a data frame.
     new_record <- data.frame(
       trade_date = as.character(input$trade_date),
       trade_time = input$trade_time,
       currency_pair = input$currency_pair,
-      entry_second = as.numeric(input$entry_second),
+      forecast = input$forecast,
       trade_expiry_time = input$trade_expiry_time,
       outcome = input$outcome,
       comment = input$comment,
@@ -225,7 +223,7 @@ server <- function(input, output, session) {
         trade_date == new_record$trade_date,
         trade_time == new_record$trade_time,
         currency_pair == new_record$currency_pair,
-        entry_second == new_record$entry_second,
+        forecast == new_record$forecast,
         trade_expiry_time == new_record$trade_expiry_time,
         outcome == new_record$outcome,
         comment == new_record$comment
@@ -242,7 +240,7 @@ server <- function(input, output, session) {
       new_record$trade_date,
       new_record$trade_time,
       new_record$currency_pair,
-      new_record$entry_second,
+      new_record$forecast,
       new_record$trade_expiry_time,
       new_record$outcome,
       new_record$comment
@@ -255,7 +253,7 @@ server <- function(input, output, session) {
     updateDateInput(session, "trade_date", value = Sys.Date())
     updateTextInput(session, "trade_time", value = "")
     updateTextInput(session, "currency_pair", value = "")
-    updateNumericInput(session, "entry_second", value = 0)
+    updateSelectInput(session, "forecast", selected = "buy")
     updateSelectInput(session, "trade_expiry_time", selected = "15 Seconds")
     updateSelectInput(session, "outcome", selected = "win")
     updateTextAreaInput(session, "comment", value = "")   
@@ -284,7 +282,7 @@ server <- function(input, output, session) {
         trade_date = character(),
         trade_time = character(),
         currency_pair = character(),
-        entry_second = numeric(),
+        forecast = character(),
         trade_expiry_time = character(),
         outcome = character(),
         comment = character()
@@ -296,10 +294,15 @@ server <- function(input, output, session) {
     tradeData(getTrades())
     showNotification("Trade data has been reset!", type = "message")
   })
-  
-  
-  
-  
+
+    # Download Handler for CSV download.
+    output$download_trades <- downloadHandler(
+      filename = function() {
+        paste("trades_data_", Sys.Date(), ".csv", sep = "")
+      },
+      content = function(file) {
+        file.copy(csv_file_path, file)
+      })
   
   # Summary Outputs
   
@@ -319,9 +322,7 @@ server <- function(input, output, session) {
     paste(rate)
   })
   
-  
-  
-  # Top 5 Most Profitable Currency Pairs.
+  # Top 5 Most Profitable Assets.
   output$top_profitable <- renderDT({
     data <- tradeData()
     if(nrow(data) == 0) return(datatable(data.frame()))
@@ -337,9 +338,7 @@ server <- function(input, output, session) {
     datatable(top5, options = list(dom = 't', paging = FALSE))
   })
   
-  
-  
-  # Top 5 Most Unprofitable Currency Pairs.
+  # Top 5 Most Unprofitable Assets.
   output$top_unprofitable <- renderDT({
     data <- tradeData()
     if(nrow(data) == 0) return(datatable(data.frame()))
@@ -354,9 +353,7 @@ server <- function(input, output, session) {
     top5 <- head(summary, 5)
     datatable(top5, options = list(dom = 't', paging = FALSE))
   })
-  
-  
-  
+
   # Render a Plotly bar chart for outcome distribution.
   output$outcome_plot <- renderPlotly({
     data <- tradeData() %>% 
@@ -380,9 +377,6 @@ server <- function(input, output, session) {
     ggplotly(p) %>% layout(margin = list(t = 80))
   })
   
-  
-  
-  
   # Render the data table of trade entries.
   output$trade_table <- renderDT({
     datatable(
@@ -391,7 +385,7 @@ server <- function(input, output, session) {
           Date = trade_date,
           Time = trade_time,
           Asset = currency_pair,
-          `Entry Second` = entry_second,
+          Forecast = forecast,
           `Trade Expiry Time` = trade_expiry_time,
           `Trade Outcome` = outcome,
           Comment = comment
@@ -403,15 +397,36 @@ server <- function(input, output, session) {
         buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),  # Export buttons
         class = "table table-striped table-hover table-bordered"
       ),
-      rownames = FALSE
+      rownames = FALSE,
+      editable = TRUE
     ) %>% 
       formatStyle(
-        columns = c('Date', 'Time', 'Asset', 'Entry Second', 'Trade Expiry Time', 'Trade Outcome', 'Comment'),
+        columns = c('Date', 'Time', 'Asset', 'Forecast', 'Trade Expiry Time', 'Trade Outcome', 'Comment'),
         fontSize = '14px', 
         fontWeight = 'bold', 
         color = 'black',
         backgroundColor = 'white'
       )
+  })
+  
+  # Observer to capture cell edits in the trade table.
+  observeEvent(input$trade_table_cell_edit, {
+    info <- input$trade_table_cell_edit
+    i <- info$row
+    j <- ifelse(info$col > 1, info$col + 1, info$col)
+    v <- info$value
+    
+    # Mapping from displayed columns to underlying data names.
+    underlying_cols <- c("trade_date", "trade_time", "currency_pair", "forecast", "trade_expiry_time", "outcome", "comment")
+    
+    current_data <- tradeData()
+    current_data[i, underlying_cols[j]] <- v
+    
+    # Update the reactive data and write the changes back to the CSV file.
+    tradeData(current_data)
+    write.csv(current_data, csv_file_path, row.names = FALSE)
+    
+    showNotification("Trade record updated.", type = "message")
   })
   
   
